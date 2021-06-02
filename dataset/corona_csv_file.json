@@ -14,7 +14,7 @@
 				"folderPath": "onsdag/covid19/overvagning/data/overvaagningsdata-covid19-01062021-fg22",
 				"fileSystem": "coronadata"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": ";",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
