@@ -1,0 +1,19 @@
+{
+	"name": "coronadata_container",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "datalake storage account",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "onsdag",
+				"fileSystem": "coronadata"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
