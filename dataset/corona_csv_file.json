@@ -1,0 +1,29 @@
+{
+	"name": "corona_csv_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "datalake storage account",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Test_pos_over_time.csv",
+				"folderPath": "onsdag/covid19/overvagning/data/overvaagningsdata-covid19-01062021-fg22",
+				"fileSystem": "coronadata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Date;NewPositive;NotPrevPos;PosPct;PrevPos;Tested;Tested_kumulativ",
+				"type": "String"
+			}
+		]
+	}
+}
