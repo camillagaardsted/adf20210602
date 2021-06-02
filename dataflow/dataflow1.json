@@ -19,13 +19,13 @@
 			],
 			"transformations": [
 				{
-					"name": "Select1"
+					"name": "Filter1"
 				},
 				{
-					"name": "Filter1"
+					"name": "Select1"
 				}
 			],
-			"script": "source(output(\n\t\t{Date;NewPositive;NotPrevPos;PosPct;PrevPos;Tested;Tested_kumulativ} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 select(mapColumn(\n\t\t{Date;NewPositive;NotPrevPos;PosPct;PrevPos;Tested;Tested_kumulativ}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 filter(ERROR_FUNCTION('')) ~> Filter1\nFilter1 sink(skipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"script": "source(output(\n\t\t{Date;NewPositive;NotPrevPos;PosPct;PrevPos;Tested;Tested_kumulativ} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nSelect1 filter(ERROR_FUNCTION('')) ~> Filter1\nsource1 select(mapColumn(\n\t\t{Date;NewPositive;NotPrevPos;PosPct;PrevPos;Tested;Tested_kumulativ}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nFilter1 sink(skipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
 		}
 	}
 }
