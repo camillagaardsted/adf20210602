@@ -1,0 +1,20 @@
+{
+	"name": "powerquery1",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "corona_csv_file",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~>  corona_csv_file",
+					"dataset": {
+						"referenceName": "corona_csv_file",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"sinks": [],
+			"script": "section Section1;\r\nshared corona_csv_file = let\r\n  AdfDoc = AzureStorage.DataLakeContents(\"https://datalake20210531.dfs.core.windows.net/coronadata/onsdag/covid19/overvagning/data/overvaagningsdata-covid19-01062021-fg22/Test_pos_over_time.csv\"),\r\n  Csv = Csv.Document(AdfDoc, [Delimiter = \";\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]),\r\n  PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true])\r\nin\r\n  PromotedHeaders;\r\nshared UserQuery = let\r\n  Source = corona_csv_file,\r\n  #\"Filtered rows\" = Table.SelectRows(Source, each Text.Contains([Date], \"-\")),\r\n  #\"Changed column type\" = Table.TransformColumnTypes(#\"Filtered rows\", {{\"Date\", type date}}),\r\n  #\"Removed columns\" = Table.RemoveColumns(#\"Changed column type\", {\"PrevPos\", \"Tested\", \"Tested_kumulativ\", \"PosPct\", \"NotPrevPos\"}),\r\n  #\"Changed column type 1\" = Table.TransformColumnTypes(#\"Removed columns\", {{\"NewPositive\", Int64.Type}})\r\nin\r\n  #\"Changed column type 1\";\r\n"
+		}
+	}
+}
